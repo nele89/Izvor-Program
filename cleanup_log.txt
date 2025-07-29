@@ -1,22 +1,4 @@
 Cleanup Log
 ===========
 🔍 Počinjem čišćenje projekta u D:\Izvor-Program
-❌ Greška pri backup-u: [WinError 5] Access is denied: 'D:\\Izvor-Program\\backup_before_cleanup\\.git_backup\\objects\\4b\\825dc642cb6eb9a060e54bf8d69288fbee4904'
-❌ KATASTROFALNA GREŠKA: [WinError 5] Access is denied: 'D:\\Izvor-Program\\backup_before_cleanup\\.git_backup\\objects\\4b\\825dc642cb6eb9a060e54bf8d69288fbee4904'
-Traceback (most recent call last):
-  File "D:\Izvor-Program\safe_cleanup.py", line 137, in main
-    backup_project()
-    ~~~~~~~~~~~~~~^^
-  File "D:\Izvor-Program\safe_cleanup.py", line 51, in backup_project
-    shutil.rmtree(BACKUP_DIR)
-    ~~~~~~~~~~~~~^^^^^^^^^^^^
-  File "C:\Users\Nelstore Basic LLC\AppData\Local\Programs\Python\Python313\Lib\shutil.py", line 790, in rmtree
-    return _rmtree_unsafe(path, onexc)
-  File "C:\Users\Nelstore Basic LLC\AppData\Local\Programs\Python\Python313\Lib\shutil.py", line 629, in _rmtree_unsafe
-    onexc(os.unlink, fullname, err)
-    ~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^
-  File "C:\Users\Nelstore Basic LLC\AppData\Local\Programs\Python\Python313\Lib\shutil.py", line 625, in _rmtree_unsafe
-    os.unlink(fullname)
-    ~~~~~~~~~^^^^^^^^^^
-PermissionError: [WinError 5] Access is denied: 'D:\\Izvor-Program\\backup_before_cleanup\\.git_backup\\objects\\4b\\825dc642cb6eb9a060e54bf8d69288fbee4904'
-
+✓ Backup kreiran u D:\Izvor-Program\backup_before_cleanup

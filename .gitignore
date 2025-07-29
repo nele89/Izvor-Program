@@ -1,0 +1,18 @@
+﻿# Python cache
+__pycache__/
+*.pyc
+
+# Log fajlovi
+logs/*.log
+
+# Trenirani model
+ml/trained_model.pkl
+
+# Lokalna podešavanja
+settings.json
+
+# Backup fajlovi
+*.bak
+
+# Ignoriši celu dukascopy podstrukturu unutar data
+data/dukascopy/

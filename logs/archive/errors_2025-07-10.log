@@ -1,0 +1,11 @@
+20:09:36 [ERROR] ❌ Parquet za XAUUSD nema kolonu 'time'.
+20:31:03 [ERROR] ❌ Parquet za XAUUSD nema kolonu 'time'.
+22:46:09 [ERROR] ❌ Greška tokom resample: malloc of size 468130304 failed
+22:52:06 [ERROR] ❌ Greška tokom resample: Unable to allocate 1.31 GiB for an array with shape (3, 58516286) and data type float64
+22:54:31 [ERROR] ⛔ Nema interneta. Pokušavam ponovo za 30 sekundi...
+22:57:49 [ERROR] ❌ Greška tokom resample: Unable to allocate 446. MiB for an array with shape (58516286,) and data type datetime64[ns]
+23:01:52 [ERROR] ❌ Greška tokom resample: Unable to allocate 446. MiB for an array with shape (58516286,) and data type int64
+23:16:27 [ERROR] ❌ Greška tokom resample: Unable to allocate 2.62 GiB for an array with shape (6, 58516286) and data type float64
+23:41:03 [ERROR] ❌ Greška pri učitavanju modela: EOF: reading array data, expected 262144 bytes got 1360
+23:55:40 [ERROR] ❌ Greška pri učitavanju modela: EOF: reading array data, expected 59048 bytes got 8048
+23:55:40 [ERROR] ❌ Greška pri učitavanju modela: EOF: reading array data, expected 262144 bytes got 260704

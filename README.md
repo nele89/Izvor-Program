@@ -32,3 +32,5 @@ Izvor je napredni automatizovani trading bot za MT5 koji koristi:
    cd Izvor-Program
 
 **AUTO_TEST 20250729182645**
+
+**AUTO_TEST 20250729182833**

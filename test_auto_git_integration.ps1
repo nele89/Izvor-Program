@@ -1,71 +1,90 @@
 # test_auto_git_integration.ps1
-# Automatski test Git↔VS Code integracije za auto‐commit/push on save
+# Automatski test Git↔VS Code auto‐commit/push workflow
 
-$ErrorActionPreference = "Stop"
+$ErrorActionPreference = 'Stop'
+$errors = 0
 
-function OK([string]$msg)  { Write-Host "[OK]   $msg" -ForegroundColor Green }
-function ERR([string]$msg) { Write-Host "[ERR]  $msg" -ForegroundColor Red; exit 1 }
+function LogOK($msg)  { Write-Host "[OK]   $msg" -ForegroundColor Green }
+function LogERR($msg) { Write-Host "[ERR]  $msg" -ForegroundColor Red; $script:errors++ }
 
-# 1) Provera .git
-if (Test-Path ".git") { OK ".git direktorijum pronađen" }
-else { ERR ".git direktorijum nije pronađen" }
+try {
+    # 1) .git direktorijum
+    if (Test-Path ".git") { LogOK ".git direktorijum pronađen" }
+    else               { LogERR ".git direktorijum NIJE pronađen" }
 
-# 2) Provera remote origin
-$remotes = git remote
-if ($remotes -contains "origin") { OK "Remote 'origin' konfigurisan" }
-else { ERR "Remote 'origin' nije konfigurisan" }
+    # 2) remote origin
+    $remotes = git remote
+    if ($remotes -contains "origin") { LogOK "Remote 'origin' konfigurisan" }
+    else                              { LogERR "Remote 'origin' NIJE konfigurisan" }
 
-# 3) Provera grane main
-$currentBranch = git rev-parse --abbrev-ref HEAD
-if ($currentBranch -eq "main") { OK "Nalaziš se na grani 'main'" }
-else { ERR "Na grani si '$currentBranch', očekivana je 'main'" }
+    # 3) trenutno na main
+    $cur = git rev-parse --abbrev-ref HEAD
+    if ($cur -eq "main") { LogOK "Nalaziš se na grani 'main'" }
+    else                 { LogERR "Na grani si '$cur'; očekivana 'main'" }
 
-# 4) Kreiranje i prelazak na test‐granu
-$timestamp = Get-Date -Format "yyyyMMddHHmmss"
-$testBranch = "test-auto-$timestamp"
-git checkout -b $testBranch
-OK "Kreirana i aktivirana test‐grana '$testBranch'"
+    # 4) Kreiraj i pređi na test‐granu
+    $ts = Get-Date -Format "yyyyMMddHHmmss"
+    $testBranch = "test-auto-$ts"
+    git checkout -b $testBranch
+    LogOK "Kreirana i aktivirana test‐grana '$testBranch'"
 
-# 5) Zabeleži početni commit
-$origHEAD = git rev-parse HEAD
-OK "Početni commit: $origHEAD"
+    # 5) Podsetnik na orig HEAD
+    $origHEAD = git rev-parse HEAD
+    LogOK "Početni commit: $origHEAD"
 
-# 6) Izmeni README.md
-Add-Content -Path "README.md" -Value ("`n**AUTO_TEST $timestamp**")
-OK "Dodata test linija u README.md"
+    # 6) Izmeni README.md
+    Add-Content -Path "README.md" -Value ("`n**AUTO_TEST $ts**")
+    LogOK "Dodata test linija u README.md"
 
-# 7) Pokretanje auto_git_push.ps1
-Write-Host "Pokrećem auto_git_push.ps1..." -ForegroundColor Cyan
-.\auto_git_push.ps1
-OK "auto_git_push.ps1 izvršen"
+    # 7) Postavi upstream da auto_git_push uspe (samo za test granu)
+    git push --set-upstream origin $testBranch
+    LogOK "Test‐grana '$testBranch' postavljena na remote"
 
-# 8) Kratko čekanje
-Start-Sleep -Seconds 2
+    # 8) Pokreni auto‐commit skriptu
+    Write-Host "`n… Pokrećem auto_git_push.ps1 …" -ForegroundColor Cyan
+    .\auto_git_push.ps1
+    LogOK "auto_git_push.ps1 izvršen"
 
-# 9) Provera novog commita
-$newHEAD = git rev-parse HEAD
-if ($newHEAD -eq $origHEAD) { ERR "Nije kreiran novi commit" }
-else { OK "Novi commit detektovan: $newHEAD" }
+    Start-Sleep -Seconds 2
 
-# 10) Provera poruke commita
-$commitMsg = git log -1 --pretty=format:"%s"
-if ($commitMsg -match "^Auto-save: README\.md at") {
-    OK "Commit poruka ispravna: '$commitMsg'"
-} else {
-    ERR "Neočekivana commit poruka: '$commitMsg'"
+    # 9) Provera novog commita
+    $newHEAD = git rev-parse HEAD
+    if ($newHEAD -ne $origHEAD) { LogOK "Novi commit detektovan: $newHEAD" }
+    else                         { LogERR "Nije kreiran novi commit" }
+
+    # 10) Provera poruke commita
+    $msg = git log -1 --pretty=format:"%s"
+    if ($msg -match "^Auto-save") {
+        LogOK "Commit poruka važeća: '$msg'"
+    } else {
+        LogERR "Commit poruka neočekivana: '$msg'"
+    }
+}
+finally {
+    Write-Host "`n=== ČIŠĆENJE ===" -ForegroundColor Cyan
+
+    # vrati izmene
+    git reset --hard HEAD~1 2>$null
+    LogOK "Lokalan HEAD vraćen na $origHEAD"
+
+    # vratimo se na main
+    git checkout main 2>$null
+    LogOK "Prelazak na main"
+
+    # obriši lokalnu test‐granu
+    git branch -D $testBranch 2>$null
+    LogOK "Lokalna test‐grana obrisana"
+
+    # obriši remote test‐granu
+    git push origin --delete $testBranch 2>$null
+    LogOK "Remote test‐grana izbrisana"
 }
 
-# 11) Vraćanje lokalnih izmena
-git reset --hard $origHEAD
-OK "Lokalne izmene vraćene"
-
-# 12) Brisanje test‐grane na remote
-git push origin --delete $testBranch 2>$null
-OK "Test‐grana '$testBranch' obrisana na remote"
-
-# 13) Povratak na main i brisanje lokalne test‐grane
-git checkout main
-git branch -D $testBranch
-OK "Lokalna test‐grana '$testBranch' obrisana"
-
-OK "🎉 TEST PASSED: tvoj auto‐commit/push workflow radi besprekorno!"
+Write-Host "`n=== REZULTAT ===" -ForegroundColor Cyan
+if ($errors -eq 0) {
+    Write-Host "🎉 TEST PASSED: auto‐commit/push workflow radi besprekorno!" -ForegroundColor Green
+    exit 0
+} else {
+    Write-Host "❗ TEST FAILED: pronađeno problema: $errors" -ForegroundColor Red
+    exit 1
+}

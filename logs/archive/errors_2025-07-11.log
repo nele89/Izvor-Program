@@ -1,4 +1,0 @@
-15:31:59 [ERROR] ⚠️ Nedostaje promenljiva 'NEWS_API_KEY' u .env fajlu.
-15:31:59 [ERROR] ⛔ Konfiguracija nije validna. Zatvaram aplikaciju.
-16:42:58 [ERROR] ❌ Greška tokom CSV → Parquet konverzije: Unable to allocate 447. MiB for an array with shape (1, 58541815) and data type float64
-16:44:59 [ERROR] Greška pri učitavanju vesti: ('Connection aborted.', ConnectionAbortedError(10053, 'An established connection was aborted by the software in your host machine', None, 10053, None))

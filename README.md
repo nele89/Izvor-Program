@@ -1,6 +1,6 @@
 # 📈 Izvor Trading Bot
 
-**Verzija:** 1..............1
+**Verzija:** 1
 **Platforma:** Windows 10/11  
 **Terminal:** MetaTrader 5  
 **GUI:** PyQt5 (ranije Tkinter – zamenjeno)
@@ -31,7 +31,4 @@ Izvor je napredni automatizovani trading bot za MT5 koji koristi:
    git clone https://github.com/nele89/Izvor-Program.git
    cd Izvor-Program
 
-mmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmm
-
-<!-- test auto‑save -->
-<!-- test auto‑save -->
+**AUTO_TEST 20250729182645**

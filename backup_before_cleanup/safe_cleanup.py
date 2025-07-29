@@ -104,19 +104,25 @@ def safe_read_file(path):
 
 def fix_security():
     """Popravlja sigurnosne propuste"""
-    # 1. Saniraj pickle.load()
+    # 1. Saniraj # WARNING: Replaced unsafe pickle.load()
+    # pickle.load()
     pickle_fixes = 0
     for py_file in PROJECT_ROOT.rglob("*.py"):
         try:
             content = safe_read_file(py_file)
-            if "pickle.load(" in content:
+            if "# WARNING: Replaced unsafe pickle.load()
+    # pickle.load(" in content:
                 fixed = content.replace(
-                    "pickle.load(",
-                    "# WARNING: Replaced unsafe pickle.load()\n    # pickle.load("
+                    "# WARNING: Replaced unsafe pickle.load()
+    # pickle.load(",
+                    "# WARNING: Replaced unsafe # WARNING: Replaced unsafe pickle.load()
+    # pickle.load()\n    # # WARNING: Replaced unsafe pickle.load()
+    # pickle.load("
                 )
                 py_file.write_text(fixed, encoding='utf-8')
                 pickle_fixes += 1
-                log_message(f"✓ Saniran pickle.load() u {py_file}")
+                log_message(f"✓ Saniran # WARNING: Replaced unsafe pickle.load()
+    # pickle.load() u {py_file}")
         except Exception as e:
             log_message(f"⚠️ Greška pri obradi {py_file}: {str(e)}")
     

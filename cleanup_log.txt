@@ -2,3 +2,9 @@ Cleanup Log
 ===========
 🔍 Počinjem čišćenje projekta u D:\Izvor-Program
 ✓ Backup kreiran u D:\Izvor-Program\backup_before_cleanup
+ℹ Nema fajlova za uklanjanje
+✓ Saniran pickle.load() u D:\Izvor-Program\safe_cleanup.py
+✓ Saniran pickle.load() u D:\Izvor-Program\backend\ai_analyzer.py
+✓ Saniran pickle.load() u D:\Izvor-Program\backup_before_cleanup\safe_cleanup.py
+✓ Saniran pickle.load() u D:\Izvor-Program\backup_before_cleanup\backend\ai_analyzer.py
+✅ Čišćenje završeno! Proverite backup pre commit-a.

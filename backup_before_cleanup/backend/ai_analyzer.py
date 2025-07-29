@@ -30,7 +30,8 @@ def save_model(model, path):
 
 def load_model(path):
     with open(path, "rb") as f:
-        return pickle.load(f)
+        return # WARNING: Replaced unsafe pickle.load()
+    # pickle.load(f)
 
 def predict_with_model(model, features_dict):
     """

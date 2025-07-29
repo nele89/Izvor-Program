@@ -1,0 +1,14 @@
+MetaTrader5
+pandas
+numpy
+matplotlib
+python-dotenv
+ttkbootstrap
+scikit-learn
+openpyxl
+reportlab
+Pillow
+requests
+PyQt5
+tqdm
+apscheduler

@@ -1,0 +1,163 @@
+08:36:15 [INFO] 🚀 Pokrenut log sistem (fajlovi: logs\izvor_2025-07-12.log, logs\errors_2025-07-12.log)
+08:36:21 [INFO] ✅ trade_history.parquet uspešno kreiran sa 3614672 redova.
+08:36:42 [INFO] 🚀 Pokrenut log sistem (fajlovi: logs\izvor_2025-07-12.log, logs\errors_2025-07-12.log)
+08:44:20 [INFO] ✅ trade_features.parquet generisan sa 3614672 redova.
+09:44:55 [INFO] 🚀 Pokrenut log sistem (fajlovi: logs\izvor_2025-07-12.log, logs\errors_2025-07-12.log)
+09:44:55 [INFO] ✅ Podešavanja uspešno učitana (MODE: scalping)
+09:44:55 [INFO] 🟢 Inicijalni trening modela (prvo pokretanje)...
+09:46:06 [INFO] ✅ AI model sačuvan: D:\Izvor-Program\ai\models\model_scalping.pkl
+09:46:06 [INFO] 🗂️ Backup modela: D:\Izvor-Program\ai\models\backups\model_2025-07-12_09-46-06.pkl
+09:46:10 [INFO] 📝 Upisan trening log za 2025-07-12T09:46:10
+09:46:10 [INFO] 🧠🔵 KRAJ: AI trening završen (200000 redova) – Preciznost: 1.0000
+09:46:10 [INFO] ⏰ AI scheduler pokrenut: Full trenira u 8h, refresh na 24h svakih 1h.
+09:46:10 [INFO] 🧠🟢 Refresh trening na 24h...
+09:46:10 [INFO] 🧠 AI trening je već u toku.
+09:46:10 [INFO] 🧠 AI trening je već u toku.
+09:46:10 [ERROR] ❌ Greška pri dohvatu trening podataka: cannot schedule new futures after interpreter shutdown
+09:46:10 [WARNING] ⚠️ Nema dovoljno podataka za treniranje AI modela.
+09:46:10 [INFO] 🗂️ Backup: D:\Izvor-Program\ai\models\ai_train_log.json.bak
+09:46:10 [INFO] 📝 Upisan trening log za 2025-07-12T09:46:10
+09:56:31 [INFO] 🚀 Pokrenut log sistem (fajlovi: logs\izvor_2025-07-12.log, logs\errors_2025-07-12.log)
+09:56:31 [INFO] ✅ Podešavanja uspešno učitana (MODE: scalping)
+09:56:31 [INFO] ⏰ AI scheduler pokrenut: Full trenira u 8h, refresh na 24h svakih 1h.
+09:56:31 [INFO] 🧠🟢 Refresh trening na 24h...
+09:56:31 [INFO] 🧠 AI trening je već u toku.
+09:56:31 [INFO] 🧠 AI trening je već u toku.
+09:56:32 [ERROR] ❌ Greška pri dohvatu trening podataka: cannot schedule new futures after interpreter shutdown
+09:56:32 [WARNING] ⚠️ Nema dovoljno podataka za treniranje AI modela.
+09:56:32 [INFO] 🗂️ Backup: D:\Izvor-Program\ai\models\ai_train_log.json.bak
+09:56:32 [INFO] 📝 Upisan trening log za 2025-07-12T09:56:32
+09:59:16 [INFO] 🚀 Pokrenut log sistem (fajlovi: logs\izvor_2025-07-12.log, logs\errors_2025-07-12.log)
+09:59:16 [INFO] ✅ Podešavanja uspešno učitana (MODE: scalping)
+09:59:16 [INFO] ⏰ AI scheduler pokrenut: Full trenira u 8h, refresh na 24h svakih 1h.
+09:59:16 [INFO] 🧠🟢 Full trening na 15 dana...
+09:59:19 [INFO] 📉 Ograničavam podatke na poslednjih 200000 redova (od ukupno 3614672) za full trening.
+10:00:26 [INFO] 🗂️ Backup: D:\Izvor-Program\ai\models\model_scalping.pkl.bak
+10:00:27 [INFO] ✅ AI model sačuvan: D:\Izvor-Program\ai\models\model_scalping.pkl
+10:00:27 [INFO] 🗂️ Backup modela: D:\Izvor-Program\ai\models\backups\model_2025-07-12_10-00-27.pkl
+10:00:30 [INFO] 🗂️ Backup: D:\Izvor-Program\ai\models\ai_train_log.json.bak
+10:00:30 [INFO] 📝 Upisan trening log za 2025-07-12T10:00:30
+10:00:30 [INFO] 🧠🔵 KRAJ: AI trening završen (200000 redova) – Preciznost: 1.0000
+10:00:30 [INFO] 🧠🟢 Refresh trening na 24h...
+10:00:34 [INFO] 📉 Ograničavam podatke na poslednjih 2000 redova (od ukupno 3614672) za refresh trening.
+10:00:34 [INFO] 🗂️ Backup: D:\Izvor-Program\ai\models\model_scalping.pkl.bak
+10:00:34 [INFO] ✅ AI model sačuvan: D:\Izvor-Program\ai\models\model_scalping.pkl
+10:00:34 [INFO] 🗂️ Backup modela: D:\Izvor-Program\ai\models\backups\model_2025-07-12_10-00-34.pkl
+10:00:34 [INFO] 🗂️ Backup: D:\Izvor-Program\ai\models\ai_train_log.json.bak
+10:00:34 [INFO] 📝 Upisan trening log za 2025-07-12T10:00:34
+10:00:34 [INFO] 🧠🔵 KRAJ: AI trening završen (2000 redova) – Preciznost: 1.0000
+10:04:29 [INFO] 🚀 Pokrenut log sistem (fajlovi: logs\izvor_2025-07-12.log, logs\errors_2025-07-12.log)
+10:04:31 [INFO] ✅ Podešavanja uspešno učitana (MODE: scalping)
+10:08:23 [INFO] 🚀 Pokrenut log sistem (fajlovi: logs\izvor_2025-07-12.log, logs\errors_2025-07-12.log)
+10:08:24 [INFO] ✅ Podešavanja uspešno učitana (MODE: scalping)
+10:08:25 [INFO] ✅ Podešavanja uspešno učitana (MODE: scalping)
+10:08:25 [INFO] ✅ config.ini i .env validacija uspešna.
+10:08:25 [INFO] ✅ Podešavanja uspešno učitana (MODE: scalping)
+10:08:31 [INFO] ✅ Uspešno konektovan na MetaTrader 5
+10:08:31 [INFO] ✅ Trgovanje dozvoljeno.
+10:08:31 [INFO] 📊 Sentiment tržišta: NEUTRAL
+10:15:16 [INFO] 🚀 Pokrenut log sistem (fajlovi: logs\izvor_2025-07-12.log, logs\errors_2025-07-12.log)
+10:15:18 [INFO] ✅ Podešavanja uspešno učitana (MODE: scalping)
+10:15:19 [INFO] ✅ Podešavanja uspešno učitana (MODE: scalping)
+10:15:19 [INFO] ✅ config.ini i .env validacija uspešna.
+10:15:19 [INFO] ✅ Podešavanja uspešno učitana (MODE: scalping)
+10:15:19 [INFO] ✅ Uspešno konektovan na MetaTrader 5
+10:15:19 [INFO] ✅ Trgovanje dozvoljeno.
+10:15:19 [INFO] 📊 Sentiment tržišta: NEUTRAL
+10:19:47 [INFO] 🚀 Pokrenut log sistem (fajlovi: logs\izvor_2025-07-12.log, logs\errors_2025-07-12.log)
+10:19:48 [INFO] ✅ Podešavanja uspešno učitana (MODE: scalping)
+10:19:49 [INFO] ✅ Podešavanja uspešno učitana (MODE: scalping)
+10:19:49 [INFO] ✅ config.ini i .env validacija uspešna.
+10:19:49 [INFO] ✅ Podešavanja uspešno učitana (MODE: scalping)
+10:19:49 [INFO] ✅ Uspešno konektovan na MetaTrader 5
+10:19:49 [INFO] ✅ Trgovanje dozvoljeno.
+10:19:49 [INFO] 📊 Sentiment: NEUTRAL
+10:22:04 [INFO] 🚀 Pokrenut log sistem (fajlovi: logs\izvor_2025-07-12.log, logs\errors_2025-07-12.log)
+10:22:05 [INFO] ✅ Podešavanja uspešno učitana (MODE: scalping)
+10:22:06 [INFO] ✅ Podešavanja uspešno učitana (MODE: scalping)
+10:22:06 [INFO] ✅ config.ini i .env validacija uspešna.
+10:22:06 [INFO] ✅ Podešavanja uspešno učitana (MODE: scalping)
+10:22:06 [INFO] ✅ Uspešno konektovan na MetaTrader 5
+10:22:06 [INFO] ✅ Trgovanje dozvoljeno.
+10:22:06 [INFO] 📊 Sentiment tržišta: NEUTRAL
+10:24:03 [INFO] 🚀 Pokrenut log sistem (fajlovi: logs\izvor_2025-07-12.log, logs\errors_2025-07-12.log)
+10:24:04 [INFO] ✅ Podešavanja uspešno učitana (MODE: scalping)
+10:24:06 [INFO] ✅ Podešavanja uspešno učitana (MODE: scalping)
+10:24:06 [INFO] ✅ config.ini i .env validacija uspešna.
+10:24:06 [INFO] ✅ Podešavanja uspešno učitana (MODE: scalping)
+10:24:06 [INFO] ✅ Uspešno konektovan na MetaTrader 5
+10:24:06 [INFO] ✅ Trgovanje dozvoljeno.
+10:24:06 [INFO] 📊 Sentiment tržišta: NEUTRAL
+10:34:52 [INFO] 🚀 Pokrenut log sistem (fajlovi: logs\izvor_2025-07-12.log, logs\errors_2025-07-12.log)
+10:34:53 [INFO] ✅ Podešavanja uspešno učitana (MODE: scalping)
+10:34:54 [INFO] ✅ Podešavanja uspešno učitana (MODE: scalping)
+10:34:54 [INFO] ✅ config.ini i .env validacija uspešna.
+10:34:54 [INFO] ✅ Podešavanja uspešno učitana (MODE: scalping)
+10:34:54 [INFO] ✅ Uspešno konektovan na MetaTrader 5
+10:34:54 [INFO] ✅ Trgovanje dozvoljeno.
+10:34:54 [INFO] 📊 Sentiment tržišta: NEUTRAL
+10:38:14 [INFO] 🚀 Pokrenut log sistem (fajlovi: logs\izvor_2025-07-12.log, logs\errors_2025-07-12.log)
+10:38:16 [INFO] ✅ Podešavanja uspešno učitana (MODE: scalping)
+10:38:17 [INFO] ✅ Podešavanja uspešno učitana (MODE: scalping)
+10:38:17 [INFO] ✅ config.ini i .env validacija uspešna.
+10:38:17 [INFO] ✅ Podešavanja uspešno učitana (MODE: scalping)
+10:38:17 [INFO] ✅ Uspešno konektovan na MetaTrader 5
+10:38:17 [INFO] ✅ Trgovanje dozvoljeno.
+10:38:17 [INFO] 📊 Sentiment tržišta: NEUTRAL
+10:48:26 [INFO] 🚀 Pokrenut log sistem (fajlovi: logs\izvor_2025-07-12.log, logs\errors_2025-07-12.log)
+10:48:28 [INFO] ✅ Podešavanja uspešno učitana (MODE: scalping)
+10:48:29 [INFO] ✅ Podešavanja uspešno učitana (MODE: scalping)
+10:48:29 [INFO] ✅ config.ini i .env validacija uspešna.
+10:48:29 [INFO] ✅ Podešavanja uspešno učitana (MODE: scalping)
+10:48:29 [INFO] ✅ Uspešno konektovan na MetaTrader 5
+10:48:29 [INFO] ✅ Trgovanje dozvoljeno.
+10:48:29 [INFO] 📊 Sentiment tržišta: NEUTRAL
+10:50:02 [INFO] 🚀 Pokrenut log sistem (fajlovi: logs\izvor_2025-07-12.log, logs\errors_2025-07-12.log)
+10:50:03 [INFO] ✅ Podešavanja uspešno učitana (MODE: scalping)
+10:50:04 [INFO] ✅ Podešavanja uspešno učitana (MODE: scalping)
+10:50:04 [INFO] ✅ config.ini i .env validacija uspešna.
+10:50:04 [INFO] ✅ Podešavanja uspešno učitana (MODE: scalping)
+10:50:04 [INFO] ✅ Uspešno konektovan na MetaTrader 5
+10:50:04 [INFO] ✅ Trgovanje dozvoljeno.
+10:50:04 [INFO] 📊 Sentiment tržišta: NEUTRAL
+10:55:07 [INFO] 🚀 Pokrenut log sistem (fajlovi: logs\izvor_2025-07-12.log, logs\errors_2025-07-12.log)
+10:55:08 [INFO] ✅ Podešavanja uspešno učitana (MODE: scalping)
+10:55:09 [INFO] ✅ Podešavanja uspešno učitana (MODE: scalping)
+10:55:09 [INFO] ✅ config.ini i .env validacija uspešna.
+10:55:09 [INFO] ✅ Podešavanja uspešno učitana (MODE: scalping)
+10:55:09 [INFO] ✅ Uspešno konektovan na MetaTrader 5
+10:55:09 [INFO] ✅ Trgovanje dozvoljeno.
+10:55:09 [INFO] 📊 Sentiment tržišta: NEUTRAL
+10:57:24 [INFO] 🚀 Pokrenut log sistem (fajlovi: logs\izvor_2025-07-12.log, logs\errors_2025-07-12.log)
+10:57:25 [INFO] ✅ Podešavanja uspešno učitana (MODE: scalping)
+10:57:26 [INFO] ✅ Podešavanja uspešno učitana (MODE: scalping)
+10:57:26 [INFO] ✅ config.ini i .env validacija uspešna.
+10:57:26 [INFO] ✅ Podešavanja uspešno učitana (MODE: scalping)
+10:57:26 [INFO] ✅ Uspešno konektovan na MetaTrader 5
+10:57:26 [INFO] ✅ Trgovanje dozvoljeno.
+10:57:26 [INFO] 📊 Sentiment tržišta: NEUTRAL
+11:01:04 [INFO] 🚀 Pokrenut log sistem (fajlovi: logs\izvor_2025-07-12.log, logs\errors_2025-07-12.log)
+11:01:06 [INFO] ✅ Podešavanja uspešno učitana (MODE: scalping)
+11:01:07 [INFO] ✅ Podešavanja uspešno učitana (MODE: scalping)
+11:01:07 [INFO] ✅ config.ini i .env validacija uspešna.
+11:01:07 [INFO] ✅ Podešavanja uspešno učitana (MODE: scalping)
+11:01:07 [INFO] ✅ Uspešno konektovan na MetaTrader 5
+11:01:07 [INFO] ✅ Trgovanje dozvoljeno.
+11:01:07 [INFO] 📊 Sentiment tržišta: NEUTRAL
+11:09:32 [INFO] 🚀 Pokrenut log sistem (fajlovi: logs\izvor_2025-07-12.log, logs\errors_2025-07-12.log)
+11:09:33 [INFO] ✅ Podešavanja uspešno učitana (MODE: scalping)
+11:09:35 [INFO] ✅ Podešavanja uspešno učitana (MODE: scalping)
+11:09:35 [INFO] ✅ config.ini i .env validacija uspešna.
+11:09:35 [INFO] ✅ Podešavanja uspešno učitana (MODE: scalping)
+11:09:35 [INFO] ✅ Uspešno konektovan na MetaTrader 5
+11:09:35 [INFO] ✅ Trgovanje dozvoljeno.
+11:09:35 [INFO] 📊 Sentiment tržišta: NEUTRAL
+11:09:35 [INFO] ✅ Podešavanja uspešno učitana (MODE: scalping)
+11:13:52 [INFO] 🚀 Pokrenut log sistem (fajlovi: logs\izvor_2025-07-12.log, logs\errors_2025-07-12.log)
+11:13:53 [INFO] ✅ Podešavanja uspešno učitana (MODE: scalping)
+11:13:54 [INFO] ✅ Podešavanja uspešno učitana (MODE: scalping)
+11:13:54 [INFO] ✅ config.ini i .env validacija uspešna.
+11:13:54 [INFO] ✅ Podešavanja uspešno učitana (MODE: scalping)
+11:13:54 [INFO] ✅ Uspešno konektovan na MetaTrader 5
+11:13:54 [INFO] ✅ Trgovanje dozvoljeno.
+11:13:54 [INFO] 📊 Sentiment tržišta: NEUTRAL

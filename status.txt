@@ -1,0 +1,3 @@
+internet: OK
+mt5: NE RADI
+data_folder: OK

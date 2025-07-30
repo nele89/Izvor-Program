@@ -1,6 +1,6 @@
 # 📈 Izvor Trading Bot
 
-**Verzija:** 11111
+**Verzija:** 111
 **Platforma:** Windows 10/11  
 **Terminal:** MetaTrader 5  
 **GUI:** PyQt5 (ranije Tkinter – zamenjeno)

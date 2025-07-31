@@ -1,54 +1,62 @@
-import time
-from logs.logger import log
-from utils.data_loader import load_symbol_data
-from ai.ai_model import predict_trade
-from utils.db_manager import insert_simulated_trade
+# ai/ai_simulator.py
 
-def get_indicators_from_row(row):
-    # Pretpostavka: tvoj CSV/DF već ima ove kolone
-    return {
-        "rsi": row.get("rsi", 50),
-        "macd": row.get("macd", 0),
-        "ema_diff": row.get("ema_diff", 0),
-        "volume": row.get("volume", 100000),
-        "spread": row.get("spread", 0.1),
-        "volatility": row.get("volatility", 1.0),
-        "dxy_value": row.get("dxy_value", 100.0),
-        "us30_trend": row.get("us30_trend", 0),
-        "spx500_trend": row.get("spx500_trend", 0),
-    }
+import os
+import traceback
+from utils.logger import log_change
+from ai.strategy_manager import StrategyManager
+from ai.trading_engine import TradingEngine
 
-def run_simulation(symbol, timeframe="M1", max_steps=None, pause=0.01):
-    log.info(f"🚦 Pokrećem AI simulaciju za {symbol} ({timeframe}) ...")
-    df = load_symbol_data(symbol, timeframe)
-    if df is None or df.empty:
-        log.warning("❌ Nema podataka za simulaciju.")
-        return
+class AISimulator:
+    """Simulator za offline testiranje AI strategija."""
 
-    steps = len(df) if max_steps is None else min(len(df), max_steps)
-    results = []
-    for idx, row in df.head(steps).iterrows():
-        indicators = get_indicators_from_row(row)
-        decision = predict_trade(**indicators)
-        if decision:
-            insert_simulated_trade(symbol, decision, indicators)
-            results.append((row["time"], decision))
-            log.info(f"🟠 Simulacija {symbol}: {row['time']} -> {decision}")
-        else:
-            log.info(f"⏩ Preskočeno {symbol} {row['time']} (nema AI odluke)")
-        time.sleep(pause)
+    def __init__(self, historical_data: list):
+        """
+        :param historical_data: Lista sa istorijskim podacima (OHLC + volume)
+        """
+        self.data = historical_data
+        self.results = []
+        self.strategy_manager = StrategyManager()
+        self.trading_engine = TradingEngine(simulation_mode=True)
 
-    log.info(f"🏁 Simulacija gotova: {symbol} ({len(results)} trejdova od {steps} koraka)")
-    return results
+    def run_simulation(self):
+        """Pokreće offline simulaciju na osnovu istorijskih podataka."""
+        if not self.data or len(self.data) == 0:
+            log_change("[AI_SIMULATOR] ⚠️ Nema dostupnih podataka za simulaciju.")
+            return []
 
-def run_multi_simulation(symbols, timeframe="M1", **kwargs):
-    all_results = {}
-    for symbol in symbols:
-        result = run_simulation(symbol, timeframe, **kwargs)
-        all_results[symbol] = result
-    return all_results
+        log_change(f"[AI_SIMULATOR] ▶️ Pokrećem simulaciju sa {len(self.data)} podataka...")
 
+        for i, candle in enumerate(self.data):
+            try:
+                # Validacija osnovnih polja
+                if len(candle) < 5:
+                    log_change(f"[AI_SIMULATOR] ⚠️ Preskačem red {i}, nedovoljno podataka: {candle}")
+                    continue
+
+                # Generiši signal kroz StrategyManager
+                signal = self.strategy_manager.generate_signal(candle)
+
+                # Simuliraj trejd kroz TradingEngine
+                result = self.trading_engine.simulate_trade(signal, candle)
+                self.results.append(result)
+
+                if i % 100 == 0:  # periodični log
+                    log_change(f"[AI_SIMULATOR] ℹ️ Obrada {i}/{len(self.data)} podataka...")
+
+            except Exception as e:
+                log_change(f"[AI_SIMULATOR] ❌ Greška u simulaciji na indeksu {i}: {e}")
+                log_change(traceback.format_exc())
+                # Ne prekidamo simulaciju, idemo dalje
+
+        log_change(f"[AI_SIMULATOR] ✅ Simulacija završena. Ukupno trejdova: {len(self.results)}")
+        return self.results
+
+# Debug test
 if __name__ == "__main__":
-    # Primer: pokreni AI simulaciju za sve najvažnije simbole
-    SIMBOLI = ["XAUUSD", "EURUSD", "GBPUSD", "USDJPY"]
-    run_multi_simulation(SIMBOLI, timeframe="M1", max_steps=1000, pause=0.005)
+    dummy_data = [
+        [1.2345, 1.2350, 1.2330, 1.2340, 1000],  # OHLCV primer
+        [1.2340, 1.2360, 1.2335, 1.2355, 1200]
+    ]
+    sim = AISimulator(dummy_data)
+    res = sim.run_simulation()
+    print("Rezultati simulacije:", res)

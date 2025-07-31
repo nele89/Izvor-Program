@@ -14,5 +14,9 @@ settings.json
 # Backup fajlovi
 *.bak
 
-# Ignoriši celu dukascopy podstrukturu unutar data
+# Dukascopy podaci
 data/dukascopy/
+
+# Repozitorijumska pravila
+README.md
+SAVE/

@@ -1,67 +1,57 @@
-# 📁 ai/outlier_detector.py
+# ai/outlier_detector.py
+# Napomena: fajl je preimenovan iz outler_detector.py u outlier_detector.py
 
-import pandas as pd
-import os
-from logs.logger import log
+import numpy as np
+from utils.logger import log_change
 
-PARQUET_PATH = os.path.join("data", "dukascopy", "parquet_resampled", "XAUUSD_M1.parquet")
-
-def load_data_for_outlier_check():
-    """Učitaj sve trejdove i njihove indikatore iz Parquet fajla."""
-    if not os.path.exists(PARQUET_PATH):
-        log.warning(f"⚠️ Parquet fajl ne postoji za analizu outliera: {PARQUET_PATH}")
-        return pd.DataFrame()
-    try:
-        df = pd.read_parquet(PARQUET_PATH)
-        # Samo relevantne kolone za analizu
-        columns = [
-            "rsi", "macd", "ema10", "ema30", "close", "volume",
-            "spread", "adx", "stochastic", "cci", "gold_trend"
-        ]
-        cols = [col for col in columns if col in df.columns]
-        df = df[cols]
-        df.dropna(inplace=True)
-        return df
-    except Exception as e:
-        log.error(f"❌ Greška pri učitavanju Parquet za outlier proveru: {e}")
-        return pd.DataFrame()
-
-def detect_outliers_iqr(df: pd.DataFrame):
+class OutlierDetector:
     """
-    Detekcija outliera po IQR metodi za sve numeričke kolone.
-    Vraća rečnik sa nazivom kolone i brojem otkrivenih outliera.
+    Detektor anomalija za trgovačke podatke.
+    Koristi jednostavan statistički metod (Z-score) za otkrivanje odstupanja.
     """
-    outlier_summary = {}
 
-    for column in df.columns:
-        Q1 = df[column].quantile(0.25)
-        Q3 = df[column].quantile(0.75)
-        IQR = Q3 - Q1
-        lower = Q1 - 1.5 * IQR
-        upper = Q3 + 1.5 * IQR
+    def __init__(self, sensitivity: float = 3.0):
+        """
+        :param sensitivity: Prag za Z-score detekciju (default 3.0)
+        """
+        self.sensitivity = sensitivity
 
-        outliers = df[(df[column] < lower) | (df[column] > upper)]
-        outlier_count = outliers.shape[0]
+    def detect(self, data: list):
+        """
+        Detektuje anomalije na osnovu liste numeričkih vrednosti.
+        :return: Lista indeksa gde su pronađene anomalije
+        """
+        if data is None or len(data) == 0:
+            log_change("[OUTLIER_DETECTOR] ⚠️ Nema podataka za analizu.")
+            return []
 
-        if outlier_count > 0:
-            outlier_summary[column] = outlier_count
+        try:
+            arr = np.array(data, dtype=float)
+            mean = np.mean(arr)
+            std = np.std(arr)
 
-    return outlier_summary
+            if std == 0:
+                log_change("[OUTLIER_DETECTOR] ⚠️ Standardna devijacija je 0, nema anomalija.")
+                return []
 
-def run_outlier_check():
-    df = load_data_for_outlier_check()
-    if df.empty:
-        log.warning("⚠️ Nema podataka za outlier proveru.")
-        return
+            z_scores = np.abs((arr - mean) / std)
+            outliers = np.where(z_scores > self.sensitivity)[0].tolist()
 
-    summary = detect_outliers_iqr(df)
+            if outliers:
+                log_change(f"[OUTLIER_DETECTOR] ⚠️ Detektovano {len(outliers)} anomalija na indeksima: {outliers}")
+            else:
+                log_change("[OUTLIER_DETECTOR] ✅ Nema detektovanih anomalija.")
 
-    if not summary:
-        log.info("✅ Nisu pronađeni statistički outlieri u podacima.")
-    else:
-        log.warning("🚨 Otkriveni outlieri po indikatorima:")
-        for column, count in summary.items():
-            log.warning(f"🔹 {column}: {count} outliera")
+            return outliers
 
+        except Exception as e:
+            log_change(f"[OUTLIER_DETECTOR] ❌ Greška pri detekciji anomalija: {e}")
+            return []
+
+
+# Debug test
 if __name__ == "__main__":
-    run_outlier_check()
+    detector = OutlierDetector(sensitivity=2.5)
+    sample_data = [1, 1.1, 1.2, 10, 1.3, 1.4, -5]
+    anomalies = detector.detect(sample_data)
+    print("Detektovane anomalije:", anomalies)

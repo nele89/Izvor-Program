@@ -1,74 +1,60 @@
-import os
-import joblib
-import numpy as np
-from logs.logger import log
-from utils.paths import MODEL_DIR
+# ai/gold_trade.py
 
-MODEL_PATH = os.path.join(MODEL_DIR, "gold_model.pkl")  # ili "model.pkl" ako koristiš isti model
+import traceback
+from utils.logger import log_change
+from ai.trading_engine import TradingEngine
 
-# 11 feature-a, redosled mora biti identičan kao u dataset-u i kodu modela
-FEATURE_ORDER = [
-    "rsi",
-    "macd",
-    "ema10",
-    "ema30",
-    "close",
-    "volume",
-    "spread",
-    "adx",
-    "stochastic",
-    "cci",
-    "gold_trend"   # <<<<<<<<<< DODATO!
-]
+class GoldTrade:
+    """Klasa za trgovanje zlatom (XAU/USD) sa osnovnom zaštitom i logovanjem."""
 
-def load_gold_model():
-    if not os.path.exists(MODEL_PATH):
-        log.warning("⚠️ Gold AI model nije pronađen.")
-        return None
-    try:
-        model = joblib.load(MODEL_PATH)
-        return model
-    except Exception as e:
-        log.error(f"❌ Greška pri učitavanju gold modela: {e}")
-        return None
+    def __init__(self, max_lot: float = 10.0, symbol: str = "XAUUSD"):
+        """
+        :param max_lot: Maksimalna veličina lota za sigurnost
+        :param symbol: Simbol za trgovanje, default XAU/USD
+        """
+        self.symbol = symbol
+        self.max_lot = max_lot
+        self.trading_engine = TradingEngine()
 
-def predict_gold_trade(feature_dict):
-    """
-    feature_dict: dict sa tačno 11 ključ/feature parova (uključuje gold_trend)
-    Primer: {"rsi": 45, ..., "gold_trend": 0}
-    """
-    model = load_gold_model()
-    if model is None:
-        return None
+    def execute_trade(self, direction: str, lot_size: float, stop_loss: float = None, take_profit: float = None):
+        """
+        Izvršava trejd sa proverama i logovanjem.
+        :param direction: 'buy' ili 'sell'
+        :param lot_size: Veličina lota
+        :param stop_loss: Opcioni SL
+        :param take_profit: Opcioni TP
+        """
+        if lot_size > self.max_lot:
+            log_change(f"[GOLD_TRADE] ⚠️ Lot {lot_size} je veći od dozvoljenog maksimuma {self.max_lot}. Trejd odbijen.")
+            return False
 
-    try:
-        # Napravi ulazni niz feature-a u tačnom redosledu
-        x = np.array([feature_dict.get(feat, 0) for feat in FEATURE_ORDER], dtype=np.float32).reshape(1, -1)
-    except Exception as e:
-        log.error(f"❌ Greška pri pripremi feature-a za gold_trade: {e}")
-        return None
+        log_change(f"[GOLD_TRADE] ▶️ Pokušaj trejda {direction.upper()} {lot_size} lot na {self.symbol}...")
 
-    try:
-        prediction = model.predict(x)
-        return prediction[0]  # vraća prvu i jedinu vrednost predikcije
-    except Exception as e:
-        log.error(f"❌ Greška pri predikciji gold_trade: {e}")
-        return None
+        try:
+            result = self.trading_engine.place_order(
+                symbol=self.symbol,
+                direction=direction,
+                lot=lot_size,
+                sl=stop_loss,
+                tp=take_profit
+            )
+            if result:
+                log_change(f"[GOLD_TRADE] ✅ Trejd uspešno izvršen: {direction.upper()} {lot_size} lot na {self.symbol}")
+            else:
+                log_change(f"[GOLD_TRADE] ❌ MT5 nije prihvatio trejd za {self.symbol}")
+            return result
+        except Exception as e:
+            log_change(f"[GOLD_TRADE] ❌ Greška pri izvršavanju trejda: {e}")
+            log_change(traceback.format_exc())
+            return False
 
-# Primer poziva za testiranje
+
+# Debug test
 if __name__ == "__main__":
-    features = {
-        "rsi": 50,
-        "macd": 0.1,
-        "ema10": 18000000,
-        "ema30": 12000000,
-        "close": 2100000,
-        "volume": 6e10,
-        "spread": 0,
-        "adx": 20,
-        "stochastic": 70,
-        "cci": 100,
-        "gold_trend": 0     # OBAVEZNO
-    }
-    result = predict_gold_trade(features)
-    print("Predikcija za gold_trade:", result)
+    gt = GoldTrade(max_lot=5.0)
+    # Test BUY
+    success = gt.execute_trade("buy", 0.1, stop_loss=1920.0, take_profit=1940.0)
+    print("Rezultat BUY:", success)
+    # Test SELL
+    success = gt.execute_trade("sell", 0.2)
+    print("Rezultat SELL:", success)
